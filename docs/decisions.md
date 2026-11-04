@@ -1,0 +1,14 @@
+# Decisions
+
+Short log. Add a line when a choice would be costly to reverse.
+
+## 2026-11-03
+
+- **This file set is the spec we edit.** `docs/product.md` is the living scope. The long handoff stays in chat. We do not keep a second full copy in the repo.
+- **Guided design only.** No model, no key, no local weights. The design record is shaped so a later model can write the same fields.
+- **One link, two panels.** The cover stays on one rigid Moveo segment. A cover across a joint is out until this path works.
+- **Seam lock means layout.** Locking keeps the panel split category. It does not promise the seam stays in the same place in space.
+- **Moveo is the source to try, not a proven import.** Pin a commit, keep the MIT notice, and confirm units before any cover is treated as real. If conversion blocks us, say what failed and name another licensed model. A stand-in arm is allowed only with a visible label, and it cannot quietly become the reference.
+- **Stack to test in Phase 0, not a vow.** React, TypeScript, Three.js, a Python CAD worker, CadQuery for solids and STEP. Use the CAD kernel for the first interference checks. Add another collision library only if containment or gap checks fail there.
+- **Millimeters in the model.** One conversion into the viewer. Do not sprinkle unit factors through recipes.
+- **Look follows a working export.** The workspace should be quiet, black and white, and centered on the model. We do not polish a screen that cannot generate and export.

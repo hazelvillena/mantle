@@ -1,0 +1,74 @@
+{
+  "id": "mantle-exterior",
+  "version": 1,
+  "units": "mm",
+  "locks": [
+    {
+      "id": "seam-layout",
+      "label": "Seam layout",
+      "meaning": "Keeps the panel split. Does not freeze the seam in space."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "profile",
+      "label": "Profile character",
+      "affects": "geometry",
+      "options": ["rounded", "oval", "faceted"]
+    },
+    {
+      "id": "fullness",
+      "label": "Fullness",
+      "affects": "geometry",
+      "options": ["close", "balanced", "generous"]
+    },
+    {
+      "id": "taper",
+      "label": "Taper",
+      "affects": "geometry",
+      "options": ["none", "toward-end", "toward-base"]
+    },
+    {
+      "id": "end-coverage",
+      "label": "End coverage",
+      "affects": "geometry",
+      "options": ["short", "standard", "long"]
+    },
+    {
+      "id": "panel-layout",
+      "label": "Panel layout",
+      "affects": "geometry",
+      "options": ["single-shell", "lengthwise-split", "band-and-body"]
+    },
+    {
+      "id": "seam",
+      "label": "Seam treatment",
+      "affects": "geometry",
+      "options": ["tight", "shadow", "open"]
+    },
+    {
+      "id": "access-panel",
+      "label": "Access panel",
+      "affects": "geometry",
+      "options": ["none", "side", "end"]
+    },
+    {
+      "id": "finish",
+      "label": "Finish",
+      "affects": "appearance",
+      "options": ["matte-white", "matte-black", "soft-gray"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "slimmer",
+      "label": "Slimmer",
+      "sets": { "fullness": "close" }
+    },
+    {
+      "id": "preserve-seam-layout",
+      "label": "Preserve seam layout",
+      "locks": ["seam-layout"]
+    }
+  ]
+}

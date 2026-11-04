@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "note": "Starting points. The user can edit the words. Only selected attributes generate geometry.",
+  "briefs": [
+    {
+      "id": "consumer",
+      "name": "Consumer",
+      "text": "Quiet silhouette, smooth transitions, mostly concealed machinery.",
+      "attributes": ["quiet-silhouette", "smooth-transitions", "concealed-mechanics"]
+    },
+    {
+      "id": "industrial",
+      "name": "Industrial",
+      "text": "Purposeful panels, exposed mechanism, easy access.",
+      "attributes": ["paneled", "exposed-mechanism", "easy-access"]
+    },
+    {
+      "id": "service",
+      "name": "Service",
+      "text": "Approachable proportions, rounded transitions, a distinct maintenance panel.",
+      "attributes": ["approachable", "rounded-transitions", "maintenance-panel"]
+    }
+  ]
+}
