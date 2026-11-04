@@ -59,4 +59,4 @@ A future model must return this same state. Reject unknown fields, hardware edit
 
 ## Status
 
-Spec captured. No geometry or interface yet. Next change: one real cover in the browser and a STEP file that opens elsewhere.
+Phase 0 is running locally. One Moveo forearm link, a generated sleeve, Guided design, and a STEP export. The cover clears a measured envelope. A long cover hits a prepared joint box in the extended pose and misses it when folded. Live models are still out.

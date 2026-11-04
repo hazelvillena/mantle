@@ -3,7 +3,7 @@
 ## Now
 
 - [x] Concise living spec
-- [ ] Phase 0 — one cover around a prepared Moveo link, on screen, exported as STEP. One known clash and one clear case. A Guided design proposal drives the same parameters.
+- [x] Phase 0 — one cover around the Moveo 3M1 link, on screen, exported as STEP. Long coverage clashes in the extended pose. Short coverage is clear. Guided attributes drive the recipe.
 
 ## Next
 

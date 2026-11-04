@@ -12,3 +12,6 @@ Short log. Add a line when a choice would be costly to reverse.
 - **Stack to test in Phase 0, not a vow.** React, TypeScript, Three.js, a Python CAD worker, CadQuery for solids and STEP. Use the CAD kernel for the first interference checks. Add another collision library only if containment or gap checks fail there.
 - **Millimeters in the model.** One conversion into the viewer. Do not sprinkle unit factors through recipes.
 - **Look follows a working export.** The workspace should be quiet, black and white, and centered on the model. We do not polish a screen that cannot generate and export.
+- **Phase 0 uses the official 3M1 STL plus a sliced envelope.** SolidWorks files are not imported. Checks use the envelope and one prepared keep-out. They do not clash the raw triangles.
+- **CadQuery 2.6.1 builds the sleeve and the STEP file.** The browser only displays meshes. Interference is an OpenCascade common-volume test.
+- **The workspace is custom HTML, not a component kit.** The layout is the product surface. Primitives are plain buttons and fields.

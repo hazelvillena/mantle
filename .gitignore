@@ -1,0 +1,11 @@
+node_modules
+dist
+.venv
+__pycache__
+.pytest_cache
+*.pyc
+worker/data
+.DS_Store
+web/node_modules
+web/dist
+*.tsbuildinfo
