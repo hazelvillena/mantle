@@ -59,4 +59,4 @@ A future model must return this same state. Reject unknown fields, hardware edit
 
 ## Status
 
-Phase 0 is running locally. One Moveo forearm link, a generated sleeve, Guided design, and a STEP export. The cover clears a measured envelope. A long cover hits a prepared joint box in the extended pose and misses it when folded. Live models are still out.
+The local workspace covers one Moveo forearm. Guided design, three alternatives, Slimmer, and the seam-layout lock are in. A long cover clashes with the prepared joint in the extended pose. Reduce end coverage changes that decision, rebuilds, and rechecks before the clash is treated as cleared. STEP stays blocked while a clash stands. Live models and a second machine are out.

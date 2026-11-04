@@ -15,3 +15,5 @@ Short log. Add a line when a choice would be costly to reverse.
 - **Phase 0 uses the official 3M1 STL plus a sliced envelope.** SolidWorks files are not imported. Checks use the envelope and one prepared keep-out. They do not clash the raw triangles.
 - **CadQuery 2.6.1 builds the sleeve and the STEP file.** The browser only displays meshes. Interference is an OpenCascade common-volume test.
 - **The workspace is custom HTML, not a component kit.** The layout is the product surface. Primitives are plain buttons and fields.
+- **The on-screen cover is a display mesh of the STEP solid.** It uses a 0.1 mm absolute deflection so long edges stay smooth. The viewer welds those vertices and shades the surface, keeping creases at the cut edges.
+- **Rhino 8 read one exported STEP.** The file is the Longer reach cover after Reduce end coverage, with the seam layout still locked. Rhino reported millimeters, 2 solids, and an overall size of 148.877 × 198.1 × 148.893 mm. CadQuery wrote the file. Rhino only read it.

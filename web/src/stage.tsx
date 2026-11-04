@@ -1,8 +1,9 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useLoader, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
+import { mergeVertices, toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import type { Hardware } from "./types";
 
 const SCALE = 0.01;
@@ -29,16 +30,21 @@ function Mesh({
   opacity?: number;
   metalness?: number;
 }) {
-  const geometry = useLoader(STLLoader, url);
-  useEffect(() => {
-    geometry.computeVertexNormals();
-  }, [geometry]);
+  const loaded = useLoader(STLLoader, url);
+  const geometry = useMemo(() => {
+    const welded = mergeVertices(loaded, 1e-4);
+    const smooth = toCreasedNormals(welded, Math.PI / 6);
+    welded.dispose();
+    return smooth;
+  }, [loaded]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
   return (
     <mesh geometry={geometry}>
       <meshStandardMaterial
         color={color}
         metalness={metalness}
-        roughness={0.48}
+        roughness={0.42}
+        flatShading={false}
         side={THREE.DoubleSide}
         transparent={opacity < 1}
         opacity={opacity}

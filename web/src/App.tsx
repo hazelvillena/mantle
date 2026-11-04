@@ -386,11 +386,22 @@ export default function App() {
         {!!current?.check.findings.length && (
           <div className="findings">
             {current.check.findings.map((finding) => (
-              <button key={finding.id} type="button" onClick={() => {
-                if (finding.pose === "extended" || finding.pose === "folded") setPose(finding.pose);
-                setShowKeep(true);
-                setShowHardware(true);
-              }}>{finding.message}</button>
+              <div className="finding" key={finding.id}>
+                <button type="button" onClick={() => {
+                  if (finding.pose === "extended" || finding.pose === "folded") setPose(finding.pose);
+                  setShowKeep(true);
+                  setShowHardware(true);
+                }}>{finding.message}</button>
+                {finding.id.startsWith("keep-out-") && current.decisions["end-coverage"] !== "short" && (
+                  <button
+                    type="button"
+                    disabled={phase === "generating"}
+                    onClick={() => void runAction("reduce-end-coverage")}
+                  >
+                    Reduce end coverage
+                  </button>
+                )}
+              </div>
             ))}
           </div>
         )}

@@ -16,6 +16,11 @@ TAPER = {"none": (1.0, 1.0), "toward-end": (1.0, 0.8), "toward-base": (0.8, 1.0)
 KEEP_OUT_PAST_MM = 10.0
 KEEP_OUT_SIZE_MM = (46.0, 20.0, 26.0)
 
+# Display mesh only. Absolute millimeters, so a long edge is not coarsened.
+# The STEP file stays the solid.
+PREVIEW_LINEAR_MM = 0.1
+PREVIEW_ANGULAR_RAD = 0.08
+
 POSES = (
     {"id": "extended", "label": "Extended", "degrees": 0.0},
     {"id": "folded", "label": "Folded", "degrees": 50.0},

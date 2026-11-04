@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import cadquery as cq
 
 from mantle.checks import check_build, point_inside
-from mantle.guided import apply_attributes, propose, step_slimmer
+from mantle.guided import apply_attributes, propose, step_reduce_end_coverage, step_slimmer
 from mantle.hardware import load_hardware
 from mantle.jobs import build_revision
 from mantle.recipe import build_parts, envelope_solid, keep_out_solid
@@ -66,6 +68,60 @@ def test_guided_briefs_differ_and_slimmer_steps_once():
     layouts = {item.decisions.panel_layout for item in proposals}
     assert layouts == {"lengthwise-split"}
     assert len({item.decisions.geometry_key() for item in proposals}) == 3
+
+
+def _triangles(path) -> int:
+    data = path.read_bytes()
+    return int.from_bytes(data[80:84], "little")
+
+
+def test_preview_mesh_is_finer_than_relative_deflection(tmp_path):
+    hardware = load_hardware()
+    decisions = Decisions()
+    record = build_revision(decisions, [], [], "", None, "mesh", "mesh")
+    written = Path(__file__).resolve().parents[1] / "data" / record["id"] / "panel-a.stl"
+    coarse = tmp_path / "coarse.stl"
+    build_parts(hardware, decisions)["panel-a"].exportStl(
+        str(coarse),
+        tolerance=0.08,
+        angularTolerance=0.08,
+        ascii=False,
+        relative=True,
+    )
+    assert _triangles(written) > _triangles(coarse)
+
+
+def test_reduce_end_coverage_rechecks_and_keeps_the_seam_lock():
+    decisions = Decisions.model_validate(
+        {
+            "profile": "rounded",
+            "fullness": "close",
+            "taper": "toward-base",
+            "end-coverage": "long",
+            "panel-layout": "lengthwise-split",
+            "seam": "shadow",
+        }
+    )
+    parent = build_revision(decisions, ["seam-layout"], [], "", None, "clash", "Longer reach")
+    assert parent["check"]["blocksExport"] is True
+    assert any(item["pose"] == "extended" and not item["clear"] for item in parent["check"]["poses"])
+    unchanged, note = step_reduce_end_coverage(Decisions.model_validate({"end-coverage": "short"}))
+    assert unchanged.end_coverage == "short"
+    assert "already" in note
+
+    from mantle.jobs import revise
+
+    result = revise(parent["id"], "reduce-end-coverage")
+    assert result["changed"] is True
+    build = result["build"]
+    assert build["decisions"]["end-coverage"] == "standard"
+    assert build["decisions"]["panel-layout"] == "lengthwise-split"
+    assert build["locks"] == ["seam-layout"]
+    assert build["parentId"] == parent["id"]
+    assert "Rechecked this revision" in result["summary"]
+    assert build["check"]["blocksExport"] is False
+    assert "No interference found" in build["check"]["summary"]
+    assert "No interference found" in result["summary"]
 
 
 def test_lock_rejects_a_new_split():

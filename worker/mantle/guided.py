@@ -116,3 +116,16 @@ def step_slimmer(decisions: Decisions) -> tuple[Decisions, str]:
         update={"fullness": order[order.index(decisions.fullness) - 1]}
     )
     return updated, f"Fullness moved from {decisions.fullness} to {updated.fullness}."
+
+
+def step_reduce_end_coverage(decisions: Decisions) -> tuple[Decisions, str]:
+    order = ["short", "standard", "long"]
+    if decisions.end_coverage == "short":
+        return decisions, "End coverage is already as short as this recipe allows."
+    updated = decisions.model_copy(
+        update={"end_coverage": order[order.index(decisions.end_coverage) - 1]}
+    )
+    return (
+        updated,
+        f"End coverage moved from {decisions.end_coverage} to {updated.end_coverage}.",
+    )

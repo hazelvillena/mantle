@@ -43,5 +43,5 @@ Run pytest from `worker/`.
 - The gray mesh is the official STL. Clearance is against a sliced envelope, not every triangle.
 - Units are treated as millimeters from the 190.1 mm span. They were not checked against a drawing.
 - “No interference found in these tested poses” is the strongest clearance claim.
-- STEP was reopened with CadQuery, the same kernel that wrote it. A second CAD application was not available here.
+- Rhino 8 reopened one exported STEP: 2 solids, 148.877 × 198.1 × 148.893 mm. See the decision log.
 - Revisions live in the worker process. Restarting it clears them.

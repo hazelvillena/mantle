@@ -10,9 +10,9 @@ from pathlib import Path
 
 import cadquery as cq
 
-from mantle.bounds import RECIPE_ID, RECIPE_VERSION
+from mantle.bounds import PREVIEW_ANGULAR_RAD, PREVIEW_LINEAR_MM, RECIPE_ID, RECIPE_VERSION
 from mantle.checks import check_build
-from mantle.guided import propose, step_slimmer
+from mantle.guided import propose, step_reduce_end_coverage, step_slimmer
 from mantle.hardware import HARDWARE_VERSION, load_hardware
 from mantle.recipe import build_parts, envelope_solid, keep_out_solid
 from mantle.schema import Decisions
@@ -28,12 +28,13 @@ def _part_url(build_id: str, name: str) -> str:
 
 
 def _write_stl(shape: cq.Shape, path: Path) -> None:
-    cq.exporters.export(
-        cq.Workplane().add(shape),
+    # Relative deflection grows with edge length and facets the sleeve.
+    shape.exportStl(
         str(path),
-        exportType="STL",
-        tolerance=0.08,
-        angularTolerance=0.08,
+        tolerance=PREVIEW_LINEAR_MM,
+        angularTolerance=PREVIEW_ANGULAR_RAD,
+        ascii=False,
+        relative=False,
     )
 
 
@@ -147,8 +148,14 @@ def revise(build_id: str, action: str) -> dict:
         updated, summary = step_slimmer(decisions)
         if updated.fullness == decisions.fullness:
             return {"ok": True, "changed": False, "summary": summary, "build": current}
+    elif action == "reduce-end-coverage":
+        updated, summary = step_reduce_end_coverage(decisions)
+        if updated.end_coverage == decisions.end_coverage:
+            return {"ok": True, "changed": False, "summary": summary, "build": current}
     else:
-        raise ValueError("Supported actions are Slimmer and Preserve seam layout.")
+        raise ValueError(
+            "Supported actions are Slimmer, Preserve seam layout, and Reduce end coverage."
+        )
     with _LOCK:
         record = build_revision(
             updated,
@@ -159,6 +166,10 @@ def revise(build_id: str, action: str) -> dict:
             summary,
             current["name"],
         )
+    if action == "reduce-end-coverage":
+        summary = f"{summary} Rechecked this revision. {record['check']['summary']}"
+        record["summary"] = summary
+        (DATA / record["id"] / "record.json").write_text(json.dumps(record, indent=2))
     return {"ok": True, "changed": True, "summary": summary, "build": record}
 
 

@@ -69,6 +69,11 @@
       "id": "preserve-seam-layout",
       "label": "Preserve seam layout",
       "locks": ["seam-layout"]
+    },
+    {
+      "id": "reduce-end-coverage",
+      "label": "Reduce end coverage",
+      "sets": { "end-coverage": "shorter" }
     }
   ]
 }

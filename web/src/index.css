@@ -178,6 +178,7 @@ footer {
 .status.bad b { color: #e0b2a6; }
 
 .findings { display: flex; gap: 8px; flex-wrap: wrap; }
+.finding { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .findings button {
   border-radius: 999px;
   border: 1px solid rgba(224, 178, 166, 0.5);
